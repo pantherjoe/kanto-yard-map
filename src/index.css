@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+#map {
+  height: 100vh; /* 画面いっぱいの高さにする場合 */
+  width: 100%;
+}
