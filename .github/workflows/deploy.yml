@@ -2,18 +2,14 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ["main"]  # メインブランチにプッシュされた時に実行
-
-  # 手動実行も可能にする（テスト用）
+    branches: ["main"]
   workflow_dispatch:
 
-# GitHub Pagesへのデプロイに必要な権限設定
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# 同時に複数のデプロイが走らないように制御
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -29,7 +25,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm' # npm installを高速化
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm install
@@ -43,17 +39,14 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # ビルド結果が出力されるディレクトリを指定
-          # Viteなどの場合は './dist'、Next.js(SSG)の場合は './out'
           path: './dist'
 
   deploy:
-    # ビルドジョブが完了してから実行
     needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps: deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
