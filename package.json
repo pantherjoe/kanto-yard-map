@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
   "dev": "vite",
-  "build": "tsc && vite build",  // ← これが必要です
+  "build": "tsc && vite build",
   "preview": "vite preview"
 }
   },
