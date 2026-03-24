@@ -1,9 +1,18 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+- name: Set up Node
+    uses: actions/setup-node@v4
+    with:
+      node-version: 20
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react()],
-  // GitHub PagesのURL（/kanto-yard-map/）に合わせてベースパスを設定
-  base: '/kanto-yard-map/',
-})
+  - name: Install dependencies
+    run: npm install
+
+  - name: Build
+    run: npm run build
+
+  - name: Setup Pages
+    uses: actions/configure-pages@v4
+
+  - name: Upload artifact
+    uses: actions/upload-pages-artifact@v3
+    with:
+      path: './dist'
